@@ -1,5 +1,0 @@
-const observer=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach((el)=>observer.observe(el));const header=document.querySelector('.site-header');window.addEventListener('scroll',()=>{header.style.background=window.scrollY>80?'rgba(8,8,9,.94)':'linear-gradient(#08080acc,transparent)'});
-
-document.querySelectorAll('[data-optional-asset]').forEach((img)=>{img.addEventListener('error',()=>{img.style.display='none';img.closest('.optional-asset-wrap')?.classList.add('asset-missing')},{once:true})});
-
-document.querySelectorAll('[data-required-brand]').forEach((img)=>{img.addEventListener('error',()=>{img.style.display='none'},{once:true})});
