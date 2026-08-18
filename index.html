@@ -7,11 +7,13 @@
   <meta name="description" content="Erzsébet — Symphonic Black Metal from Barcelona">
   <title>Erzsébet — Official Website</title>
   <style>
-    :root{--gold:#b89a60;--ink:#f2f0e9;--line:rgba(255,255,255,.12)}
+    :root{--gold:#b89a60;--gold-soft:#d0b273;--ink:#f2f0e9;--muted:#9c978d;--line:rgba(255,255,255,.12);--black:#070707}
     *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:#070707;color:var(--ink)}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;min-height:100%;background:var(--black);color:var(--ink)}
     body{font-family:Arial,Helvetica,sans-serif}
     a{color:inherit;text-decoration:none}
+
     .hero{position:relative;min-height:100svh;overflow:hidden;display:grid;place-items:center;background:#0a0a0a url('./assets/hero.jpg') center center/cover no-repeat}
     .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.36),rgba(0,0,0,.12) 48%,rgba(0,0,0,.55)),linear-gradient(90deg,rgba(0,0,0,.28),transparent 34%,transparent 66%,rgba(0,0,0,.28))}
     header{position:absolute;z-index:3;top:0;left:0;right:0;height:76px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
@@ -20,10 +22,32 @@
     nav a{opacity:.75;transition:.2s ease}nav a:hover{opacity:1;color:#fff}
     .center{position:relative;z-index:2;width:min(980px,78vw);display:flex;flex-direction:column;align-items:center;text-align:center;transform:translateY(2vh)}
     .logo{display:block;width:min(900px,100%);height:auto;max-height:48vh;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(0,0,0,.72))}
-    .tagline{margin:22px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(10px,1vw,13px);font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:#d0b273;text-shadow:0 1px 12px #000}
+    .tagline{margin:22px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(10px,1vw,13px);font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-soft);text-shadow:0 1px 12px #000}
     .rule{width:74px;height:1px;background:var(--gold);margin-top:25px;opacity:.8}
     .scroll{position:absolute;z-index:2;bottom:24px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.36em;text-transform:uppercase;color:rgba(255,255,255,.58)}
-    @media(max-width:780px){header{height:64px;padding:0 20px}.monogram{width:34px;height:34px;font-size:20px}nav{display:none}.hero{background-position:52% center}.center{width:92vw;transform:none}.logo{width:94%;max-height:42vh}.tagline{max-width:90%;line-height:1.8;letter-spacing:.3em;margin-top:16px}.rule{margin-top:18px}.scroll{bottom:16px}}
+
+    .live{position:relative;padding:110px 7vw 125px;background:radial-gradient(circle at 50% 0%,rgba(184,154,96,.08),transparent 33%),#090909;border-top:1px solid rgba(184,154,96,.18)}
+    .live-inner{width:min(1120px,100%);margin:0 auto}
+    .eyebrow{text-align:center;margin:0 0 14px;color:var(--gold);font-size:9px;letter-spacing:.48em;text-transform:uppercase}
+    .section-title{text-align:center;margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(38px,6vw,70px);letter-spacing:.08em;text-transform:uppercase}
+    .section-intro{text-align:center;margin:13px auto 58px;color:var(--muted);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;letter-spacing:.05em}
+    .dates{border-top:1px solid var(--line)}
+    .date-row{display:grid;grid-template-columns:180px 1fr 230px 150px;gap:32px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
+    .date{display:flex;align-items:baseline;gap:12px;white-space:nowrap}
+    .day{font-family:Georgia,'Times New Roman',serif;font-size:46px;line-height:1;color:var(--gold-soft)}
+    .month-year{font-size:9px;line-height:1.65;letter-spacing:.22em;text-transform:uppercase;color:#c9c4ba}
+    .event-name{font-family:Georgia,'Times New Roman',serif;font-size:clamp(21px,2.2vw,30px);letter-spacing:.025em}
+    .location{font-size:10px;line-height:1.7;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+    .ticket{justify-self:end;min-width:132px;padding:13px 16px;border:1px solid rgba(184,154,96,.58);color:var(--gold-soft);text-align:center;font-size:9px;letter-spacing:.25em;text-transform:uppercase;transition:.2s ease}
+    .ticket:hover{background:var(--gold);border-color:var(--gold);color:#090909}
+
+    @media(max-width:900px){
+      .date-row{grid-template-columns:145px 1fr 150px;gap:22px}.location{grid-column:2/3}.ticket{grid-column:3/4;grid-row:1/3}
+    }
+    @media(max-width:780px){
+      header{height:64px;padding:0 20px}.monogram{width:34px;height:34px;font-size:20px}nav{display:none}.hero{background-position:52% center}.center{width:92vw;transform:none}.logo{width:94%;max-height:42vh}.tagline{max-width:90%;line-height:1.8;letter-spacing:.3em;margin-top:16px}.rule{margin-top:18px}.scroll{bottom:16px}
+      .live{padding:78px 22px 90px}.section-intro{margin-bottom:42px}.date-row{display:grid;grid-template-columns:1fr auto;gap:10px 18px;padding:26px 0}.date{grid-column:1/2}.day{font-size:38px}.event-name{grid-column:1/3;margin-top:4px}.location{grid-column:1/2}.ticket{grid-column:2/3;grid-row:3/4;align-self:end;min-width:116px;padding:11px 12px}
+    }
   </style>
 </head>
 <body>
@@ -39,7 +63,31 @@
       <p class="tagline">Symphonic Black Metal · Barcelona</p>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <span class="scroll">Scroll</span>
+    <a class="scroll" href="#live">Scroll</a>
+  </section>
+
+  <section class="live" id="live">
+    <div class="live-inner">
+      <p class="eyebrow">Upcoming</p>
+      <h2 class="section-title">Live</h2>
+      <p class="section-intro">Upcoming rituals</p>
+
+      <div class="dates">
+        <article class="date-row">
+          <div class="date"><span class="day">23</span><span class="month-year">Aug<br>2026</span></div>
+          <div class="event-name">Milagre Metaleiro Open Air</div>
+          <div class="location">Portugal</div>
+          <a class="ticket" href="https://milagremetaleiro.bol.pt/Comprar/Bilhetes/161686-milagre_metaleiro_mmoa_2026-espaco_open_air/" target="_blank" rel="noopener noreferrer">Tickets</a>
+        </article>
+
+        <article class="date-row">
+          <div class="date"><span class="day">31</span><span class="month-year">Oct<br>2026</span></div>
+          <div class="event-name">Szene Wien</div>
+          <div class="location">Vienna · Austria</div>
+          <a class="ticket" href="https://www.viennaticketoffice.com/wiener-rock-metal-zombieball-2026-tickets-396575-es.html" target="_blank" rel="noopener noreferrer">Tickets</a>
+        </article>
+      </div>
+    </div>
   </section>
 </body>
 </html>
