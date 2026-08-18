@@ -27,7 +27,7 @@
     .scroll{position:absolute;z-index:2;bottom:24px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.36em;text-transform:uppercase;color:rgba(255,255,255,.58)}
 
     .live{position:relative;padding:110px 7vw 125px;background:radial-gradient(circle at 50% 0%,rgba(184,154,96,.08),transparent 33%),#090909;border-top:1px solid rgba(184,154,96,.18)}
-    .live-inner{width:min(1120px,100%);margin:0 auto}
+    .live-inner,.band-inner,.discography-inner{width:min(1120px,100%);margin:0 auto}
     .eyebrow{text-align:center;margin:0 0 14px;color:var(--gold);font-size:9px;letter-spacing:.48em;text-transform:uppercase}
     .section-title{text-align:center;margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(38px,6vw,70px);letter-spacing:.08em;text-transform:uppercase}
     .section-intro{text-align:center;margin:13px auto 58px;color:var(--muted);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;letter-spacing:.05em}
@@ -41,8 +41,19 @@
     .ticket{justify-self:end;min-width:132px;padding:13px 16px;border:1px solid rgba(184,154,96,.58);color:var(--gold-soft);text-align:center;font-size:9px;letter-spacing:.25em;text-transform:uppercase;transition:.2s ease}
     .ticket:hover{background:var(--gold);border-color:var(--gold);color:#090909}
 
+    .band{padding:120px 7vw 130px;background:#0c0c0c;border-top:1px solid rgba(184,154,96,.13)}
+    .band-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);gap:64px;align-items:center;margin-top:58px}
+    .band-photo-wrap{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:0 28px 65px rgba(0,0,0,.48)}
+    .band-photo-wrap::after{content:"";position:absolute;inset:0;border:1px solid rgba(184,154,96,.16);pointer-events:none}
+    .band-photo{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+    .band-copy h3{margin:0 0 22px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(29px,3.5vw,46px);font-weight:400;letter-spacing:.02em}
+    .band-copy p{margin:0 0 18px;color:#c9c5bc;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.8}
+    .lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin-top:34px;border-top:1px solid var(--line)}
+    .member{padding:16px 0;border-bottom:1px solid var(--line)}
+    .member-name{display:block;color:var(--gold-soft);font-family:Georgia,'Times New Roman',serif;font-size:18px;letter-spacing:.03em}
+    .member-role{display:block;margin-top:5px;color:var(--muted);font-size:8px;letter-spacing:.24em;text-transform:uppercase}
+
     .discography{padding:120px 7vw 135px;background:linear-gradient(180deg,#070707,#0d0d0d);border-top:1px solid rgba(184,154,96,.13)}
-    .discography-inner{width:min(1120px,100%);margin:0 auto}
     .releases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:58px;margin-top:58px}
     .release{min-width:0}
     .cover-wrap{position:relative;background:#111;border:1px solid rgba(255,255,255,.09);box-shadow:0 24px 55px rgba(0,0,0,.42);overflow:hidden}
@@ -57,11 +68,12 @@
 
     @media(max-width:900px){
       .date-row{grid-template-columns:145px 1fr 150px;gap:22px}.location{grid-column:2/3}.ticket{grid-column:3/4;grid-row:1/3}
-      .releases{gap:34px}
+      .band-grid{grid-template-columns:1fr;gap:38px}.band-copy{max-width:760px}.releases{gap:34px}
     }
     @media(max-width:780px){
       header{height:64px;padding:0 20px}.monogram{width:34px;height:34px;font-size:20px}nav{display:none}.hero{background-position:52% center}.center{width:92vw;transform:none}.logo{width:94%;max-height:42vh}.tagline{max-width:90%;line-height:1.8;letter-spacing:.3em;margin-top:16px}.rule{margin-top:18px}.scroll{bottom:16px}
       .live{padding:78px 22px 90px}.section-intro{margin-bottom:42px}.date-row{display:grid;grid-template-columns:1fr auto;gap:10px 18px;padding:26px 0}.date{grid-column:1/2}.day{font-size:38px}.event-name{grid-column:1/3;margin-top:4px}.location{grid-column:1/2}.ticket{grid-column:2/3;grid-row:3/4;align-self:end;min-width:116px;padding:11px 12px}
+      .band{padding:82px 22px 95px}.band-grid{margin-top:42px;gap:30px}.band-copy p{font-size:14px;line-height:1.72}.lineup{grid-template-columns:1fr}
       .discography{padding:82px 22px 95px}.releases{grid-template-columns:1fr;gap:50px;margin-top:42px}.release-info{padding-top:20px}.release-description{font-size:14px;line-height:1.7}
     }
   </style>
@@ -87,7 +99,6 @@
       <p class="eyebrow">Upcoming</p>
       <h2 class="section-title">Live</h2>
       <p class="section-intro">Upcoming rituals</p>
-
       <div class="dates">
         <article class="date-row">
           <div class="date"><span class="day">23</span><span class="month-year">Aug<br>2026</span></div>
@@ -95,7 +106,6 @@
           <div class="location">Portugal</div>
           <a class="ticket" href="https://milagremetaleiro.bol.pt/Comprar/Bilhetes/161686-milagre_metaleiro_mmoa_2026-espaco_open_air/" target="_blank" rel="noopener noreferrer">Tickets</a>
         </article>
-
         <article class="date-row">
           <div class="date"><span class="day">31</span><span class="month-year">Oct<br>2026</span></div>
           <div class="event-name">Szene Wien</div>
@@ -106,12 +116,34 @@
     </div>
   </section>
 
+  <section class="band" id="band">
+    <div class="band-inner">
+      <p class="eyebrow">The Band</p>
+      <h2 class="section-title">Erzsébet</h2>
+      <p class="section-intro">Symphonic black metal from Barcelona</p>
+      <div class="band-grid">
+        <div class="band-photo-wrap"><img class="band-photo" src="./assets/band.jpg" alt="Erzsébet band"></div>
+        <div class="band-copy">
+          <h3>Darkness made theatrical.</h3>
+          <p>ERZSÉBET is a symphonic black metal band from Barcelona, Spain, formed in 2020. Inspired by the legend of Countess Erzsébet Báthory, the band merges ferocious black metal, cinematic orchestration and theatrical performance into a dark, immersive identity.</p>
+          <p>From the raw atmosphere of <em>The Blasphemous Lady</em> to the expanded conceptual scope of <em>Six Hundred &amp; Fifty</em>, Erzsébet combines aggression, haunting melodies and symphonic grandeur with a strong visual narrative designed to live both on record and on stage.</p>
+          <div class="lineup" aria-label="Band lineup">
+            <div class="member"><span class="member-name">Erzsébet</span><span class="member-role">Vocals</span></div>
+            <div class="member"><span class="member-name">Angelvs</span><span class="member-role">Guitars</span></div>
+            <div class="member"><span class="member-name">The Growlist</span><span class="member-role">Bass</span></div>
+            <div class="member"><span class="member-name">Cerberus</span><span class="member-role">Drums</span></div>
+            <div class="member"><span class="member-name">Viking</span><span class="member-role">Lead Guitars · Live</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="discography" id="discography">
     <div class="discography-inner">
       <p class="eyebrow">Releases</p>
       <h2 class="section-title">Discography</h2>
       <p class="section-intro">The recorded works of Erzsébet</p>
-
       <div class="releases">
         <article class="release">
           <div class="cover-wrap"><img class="cover" src="./assets/blasphemous-lady.jpg" alt="The Blasphemous Lady cover"></div>
@@ -122,7 +154,6 @@
             <p class="release-description"><em>The Blasphemous Lady</em> marked Erzsébet's debut in 2021, introducing the band's blend of raw black metal, symphonic arrangements and gothic theatricality. Built around the mythology of Countess Elisabeth Báthory, the six-track EP moves between aggressive tremolo-driven passages, blast beats and slower, brooding sections, creating a sinister and melancholic atmosphere. International metal media highlighted its strong melodies, varied vocals and deliberately rough-edged production, establishing the foundations of Erzsébet's dark and cinematic identity.</p>
           </div>
         </article>
-
         <article class="release">
           <div class="cover-wrap"><img class="cover" src="./assets/six-hundred-fifty.jpg" alt="Six Hundred &amp; Fifty cover"></div>
           <div class="release-info">
