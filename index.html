@@ -13,6 +13,7 @@
     html,body{margin:0;min-height:100%;background:var(--black);color:var(--ink)}
     body{font-family:Arial,Helvetica,sans-serif}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%}
 
     .hero{position:relative;min-height:100svh;overflow:hidden;display:grid;place-items:center;background:#0a0a0a url('./assets/hero.jpg') center center/cover no-repeat}
     .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.36),rgba(0,0,0,.12) 48%,rgba(0,0,0,.55)),linear-gradient(90deg,rgba(0,0,0,.28),transparent 34%,transparent 66%,rgba(0,0,0,.28))}
@@ -26,11 +27,27 @@
     .rule{width:74px;height:1px;background:var(--gold);margin-top:25px;opacity:.8}
     .scroll{position:absolute;z-index:2;bottom:24px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.36em;text-transform:uppercase;color:rgba(255,255,255,.58)}
 
-    .live{position:relative;padding:110px 7vw 125px;background:radial-gradient(circle at 50% 0%,rgba(184,154,96,.08),transparent 33%),#090909;border-top:1px solid rgba(184,154,96,.18)}
-    .live-inner,.band-inner,.discography-inner{width:min(1120px,100%);margin:0 auto}
+    .section-shell{width:min(1120px,100%);margin:0 auto}
     .eyebrow{text-align:center;margin:0 0 14px;color:var(--gold);font-size:9px;letter-spacing:.48em;text-transform:uppercase}
     .section-title{text-align:center;margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(38px,6vw,70px);letter-spacing:.08em;text-transform:uppercase}
     .section-intro{text-align:center;margin:13px auto 58px;color:var(--muted);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;letter-spacing:.05em}
+
+    .music{padding:120px 7vw 130px;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);border-top:1px solid rgba(184,154,96,.18)}
+    .music-grid{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr);gap:70px;align-items:center}
+    .latest-cover{position:relative;border:1px solid rgba(255,255,255,.09);box-shadow:0 28px 65px rgba(0,0,0,.48);overflow:hidden}
+    .latest-cover::after{content:"";position:absolute;inset:0;border:1px solid rgba(184,154,96,.16);pointer-events:none}
+    .latest-cover img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+    .music-copy .overline{margin:0 0 13px;color:var(--gold);font-size:9px;letter-spacing:.32em;text-transform:uppercase}
+    .music-copy h2{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,5vw,66px);font-weight:400;line-height:.98;letter-spacing:.02em}
+    .music-copy p{color:#c9c5bc;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.8}
+    .music-copy .feature-note{margin-top:23px;color:var(--muted);font-size:11px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase}
+    .action-row{display:flex;gap:24px;align-items:center;margin-top:30px;flex-wrap:wrap}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:0 19px;border:1px solid rgba(184,154,96,.58);color:var(--gold-soft);font-size:9px;letter-spacing:.24em;text-transform:uppercase;transition:.2s ease}
+    .button:hover{background:var(--gold);border-color:var(--gold);color:#090909}
+    .text-link{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9c4ba}
+    .text-link:hover{color:#fff}
+
+    .live{position:relative;padding:110px 7vw 125px;background:radial-gradient(circle at 50% 0%,rgba(184,154,96,.08),transparent 33%),#090909;border-top:1px solid rgba(184,154,96,.18)}
     .dates{border-top:1px solid var(--line)}
     .date-row{display:grid;grid-template-columns:180px 1fr 230px 150px;gap:32px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
     .date{display:flex;align-items:baseline;gap:12px;white-space:nowrap}
@@ -40,6 +57,7 @@
     .location{font-size:10px;line-height:1.7;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
     .ticket{justify-self:end;min-width:132px;padding:13px 16px;border:1px solid rgba(184,154,96,.58);color:var(--gold-soft);text-align:center;font-size:9px;letter-spacing:.25em;text-transform:uppercase;transition:.2s ease}
     .ticket:hover{background:var(--gold);border-color:var(--gold);color:#090909}
+    .ticket.disabled{opacity:.5;cursor:default}.ticket.disabled:hover{background:transparent;color:var(--gold-soft)}
 
     .band{padding:120px 7vw 130px;background:#0c0c0c;border-top:1px solid rgba(184,154,96,.13)}
     .band-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);gap:64px;align-items:center;margin-top:58px}
@@ -66,22 +84,51 @@
     .release-note{margin:10px 0 0;color:var(--muted);font-size:11px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase}
     .release-description{margin:20px 0 0;color:#c9c5bc;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.75;letter-spacing:.01em}
 
+    .videos{padding:120px 7vw 130px;background:#090909;border-top:1px solid rgba(184,154,96,.13)}
+    .video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:58px}
+    .video-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);background:#111;min-height:260px}
+    .video-card:first-child{grid-column:1/-1;min-height:470px}
+    .video-card img{display:block;width:100%;height:100%;min-height:260px;object-fit:cover;filter:brightness(.68);transition:.35s ease}
+    .video-card:first-child img{min-height:470px}
+    .video-card:hover img{filter:brightness(.88);transform:scale(1.012)}
+    .video-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:26px;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.78))}
+    .video-label{font-family:Georgia,'Times New Roman',serif;font-size:clamp(19px,2.4vw,31px)}
+    .video-index{color:var(--gold-soft);font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+    .play{width:48px;height:48px;border:1px solid rgba(208,178,115,.75);display:grid;place-items:center;color:var(--gold-soft);font-size:13px}
+
+    .contact{padding:120px 7vw 125px;background:radial-gradient(circle at 50% 0%,rgba(184,154,96,.08),transparent 35%),#070707;border-top:1px solid rgba(184,154,96,.16)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:58px;border-top:1px solid var(--line)}
+    .contact-block{padding-top:31px}
+    .contact-block h3{margin:0 0 17px;font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:400}
+    .contact-block p{color:#bdb8ae;font-family:Georgia,'Times New Roman',serif;line-height:1.75;font-size:15px}
+    .email{display:inline-block;margin-top:8px;color:var(--gold-soft);font-family:Georgia,'Times New Roman',serif;font-size:clamp(20px,2.4vw,31px);word-break:break-word}
+    .socials{display:flex;gap:26px;margin-top:28px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9c4ba}
+    .socials a:hover{color:#fff}
+
+    footer{display:flex;justify-content:space-between;gap:24px;padding:26px 5vw;border-top:1px solid var(--line);background:#050505;color:#77736c;font-size:8px;letter-spacing:.2em;text-transform:uppercase}
+
     @media(max-width:900px){
+      .music-grid{grid-template-columns:1fr;gap:42px}.latest-cover{max-width:620px;margin:0 auto}.music-copy{max-width:760px;margin:0 auto}
       .date-row{grid-template-columns:145px 1fr 150px;gap:22px}.location{grid-column:2/3}.ticket{grid-column:3/4;grid-row:1/3}
       .band-grid{grid-template-columns:1fr;gap:38px}.band-copy{max-width:760px}.releases{gap:34px}
+      .contact-grid{grid-template-columns:1fr;gap:20px}
     }
     @media(max-width:780px){
       header{height:64px;padding:0 20px}.monogram{width:34px;height:34px;font-size:20px}nav{display:none}.hero{background-position:52% center}.center{width:92vw;transform:none}.logo{width:94%;max-height:42vh}.tagline{max-width:90%;line-height:1.8;letter-spacing:.3em;margin-top:16px}.rule{margin-top:18px}.scroll{bottom:16px}
+      .music{padding:82px 22px 95px}.music-grid{gap:30px}.music-copy p{font-size:14px;line-height:1.72}
       .live{padding:78px 22px 90px}.section-intro{margin-bottom:42px}.date-row{display:grid;grid-template-columns:1fr auto;gap:10px 18px;padding:26px 0}.date{grid-column:1/2}.day{font-size:38px}.event-name{grid-column:1/3;margin-top:4px}.location{grid-column:1/2}.ticket{grid-column:2/3;grid-row:3/4;align-self:end;min-width:116px;padding:11px 12px}
       .band{padding:82px 22px 95px}.band-grid{margin-top:42px;gap:30px}.band-copy p{font-size:14px;line-height:1.72}.lineup{grid-template-columns:1fr}
       .discography{padding:82px 22px 95px}.releases{grid-template-columns:1fr;gap:50px;margin-top:42px}.release-info{padding-top:20px}.release-description{font-size:14px;line-height:1.7}
+      .videos{padding:82px 22px 95px}.video-grid{grid-template-columns:1fr;gap:18px;margin-top:42px}.video-card:first-child{grid-column:auto;min-height:280px}.video-card:first-child img{min-height:280px}.video-card{min-height:230px}.video-card img{min-height:230px}.video-overlay{padding:20px}
+      .contact{padding:82px 22px 90px}.contact-grid{margin-top:42px}.socials{flex-wrap:wrap}
+      footer{flex-direction:column;align-items:center;text-align:center;padding:24px 20px}
     }
   </style>
 </head>
 <body>
-  <section class="hero" aria-label="Erzsébet home">
+  <section class="hero" id="home" aria-label="Erzsébet home">
     <header>
-      <a class="monogram" href="#" aria-label="Erzsébet home">E</a>
+      <a class="monogram" href="#home" aria-label="Erzsébet home">E</a>
       <nav aria-label="Main navigation">
         <a href="#music">Music</a><a href="#live">Live</a><a href="#band">Band</a><a href="#discography">Discography</a><a href="#videos">Videos</a><a href="#contact">Contact</a>
       </nav>
@@ -91,11 +138,25 @@
       <p class="tagline">Symphonic Black Metal · Barcelona</p>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <a class="scroll" href="#live">Scroll</a>
+    <a class="scroll" href="#music">Scroll</a>
+  </section>
+
+  <section class="music" id="music">
+    <div class="section-shell music-grid">
+      <div class="latest-cover"><img src="./assets/six-hundred-fifty.jpg" alt="Six Hundred & Fifty album cover"></div>
+      <div class="music-copy">
+        <p class="overline">Latest full-length</p>
+        <h2>Six Hundred<br>&amp; Fifty</h2>
+        <p>A conceptual work exploring the mythology surrounding Elisabeth Báthory through richer orchestral arrangements, atmospheric storytelling and uncompromising black metal intensity.</p>
+        <p>The album expands Erzsébet's cinematic identity while retaining the aggression and dramatic contrast established on <em>The Blasphemous Lady</em>.</p>
+        <p class="feature-note">Featuring Zoe Marie Federoff on “Domina Vestra”</p>
+        <div class="action-row"><a class="button" href="#videos">Watch</a><a class="text-link" href="#discography">Explore discography →</a></div>
+      </div>
+    </div>
   </section>
 
   <section class="live" id="live">
-    <div class="live-inner">
+    <div class="section-shell">
       <p class="eyebrow">Upcoming</p>
       <h2 class="section-title">Live</h2>
       <p class="section-intro">Upcoming rituals</p>
@@ -104,20 +165,20 @@
           <div class="date"><span class="day">23</span><span class="month-year">Aug<br>2026</span></div>
           <div class="event-name">Milagre Metaleiro Open Air</div>
           <div class="location">Portugal</div>
-          <a class="ticket" href="https://milagremetaleiro.bol.pt/Comprar/Bilhetes/161686-milagre_metaleiro_mmoa_2026-espaco_open_air/" target="_blank" rel="noopener noreferrer">Tickets</a>
+          <a class="ticket" href="https://www.masqueticket.com/entradas/milagre-metaleiro-mmoa-festival-portugal-bilhetes-tickets-2026" target="_blank" rel="noopener noreferrer">Tickets</a>
         </article>
         <article class="date-row">
           <div class="date"><span class="day">31</span><span class="month-year">Oct<br>2026</span></div>
           <div class="event-name">Szene Wien</div>
           <div class="location">Vienna · Austria</div>
-          <a class="ticket" href="https://www.viennaticketoffice.com/wiener-rock-metal-zombieball-2026-tickets-396575-es.html" target="_blank" rel="noopener noreferrer">Tickets</a>
+          <span class="ticket disabled">Info soon</span>
         </article>
       </div>
     </div>
   </section>
 
   <section class="band" id="band">
-    <div class="band-inner">
+    <div class="section-shell">
       <p class="eyebrow">The Band</p>
       <h2 class="section-title">Erzsébet</h2>
       <p class="section-intro">Symphonic black metal from Barcelona</p>
@@ -140,7 +201,7 @@
   </section>
 
   <section class="discography" id="discography">
-    <div class="discography-inner">
+    <div class="section-shell">
       <p class="eyebrow">Releases</p>
       <h2 class="section-title">Discography</h2>
       <p class="section-intro">The recorded works of Erzsébet</p>
@@ -151,7 +212,7 @@
             <p class="release-meta">EP · 2021</p>
             <h3 class="release-title">The Blasphemous Lady</h3>
             <p class="release-note">Art Gates Records</p>
-            <p class="release-description"><em>The Blasphemous Lady</em> marked Erzsébet's debut in 2021, introducing the band's blend of raw black metal, symphonic arrangements and gothic theatricality. Built around the mythology of Countess Elisabeth Báthory, the six-track EP moves between aggressive tremolo-driven passages, blast beats and slower, brooding sections, creating a sinister and melancholic atmosphere. International metal media highlighted its strong melodies, varied vocals and deliberately rough-edged production, establishing the foundations of Erzsébet's dark and cinematic identity.</p>
+            <p class="release-description"><em>The Blasphemous Lady</em> introduced Erzsébet's dark artistic vision, blending relentless aggression, haunting melodies and symphonic grandeur.</p>
           </div>
         </article>
         <article class="release">
@@ -159,11 +220,40 @@
           <div class="release-info">
             <p class="release-meta">Full-length album</p>
             <h3 class="release-title">Six Hundred &amp; Fifty</h3>
-            <p class="release-description"><em>Six Hundred &amp; Fifty</em> expands Erzsébet's vision into a full-length conceptual work, delving deeper into the mythology surrounding Countess Elisabeth Báthory. The album develops the band's symphonic black metal through richer orchestral arrangements, darker atmospheres and a more cinematic approach to storytelling, while preserving the aggression and intensity established on their debut. Its songs move between relentless passages and more dramatic, evocative moments, reinforcing the theatrical character of the record. The album also features a guest appearance by Zoe Marie Federoff on “Domina Vestra,” adding another dimension to its dark narrative.</p>
+            <p class="release-description"><em>Six Hundred &amp; Fifty</em> expands Erzsébet's vision into a full-length conceptual work built around the mythology surrounding Elisabeth Báthory, combining black metal ferocity, rich orchestral arrangements and cinematic storytelling. The album features Zoe Marie Federoff on “Domina Vestra.”</p>
           </div>
         </article>
       </div>
     </div>
   </section>
+
+  <section class="videos" id="videos">
+    <div class="section-shell">
+      <p class="eyebrow">Visual works</p>
+      <h2 class="section-title">Videos</h2>
+      <p class="section-intro">Official videos and live material</p>
+      <div class="video-grid">
+        <a class="video-card" href="https://www.youtube.com/watch?v=V4qPiUmkRDI" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/V4qPiUmkRDI/maxresdefault.jpg" alt="Erzsébet video thumbnail"><div class="video-overlay"><div><span class="video-index">01 · YouTube</span><div class="video-label">Watch video</div></div><span class="play">▶</span></div></a>
+        <a class="video-card" href="https://www.youtube.com/watch?v=mcx6ltFWQpo" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/mcx6ltFWQpo/hqdefault.jpg" alt="Erzsébet video thumbnail"><div class="video-overlay"><div><span class="video-index">02 · YouTube</span><div class="video-label">Watch video</div></div><span class="play">▶</span></div></a>
+        <a class="video-card" href="https://www.youtube.com/watch?v=GWa9Xg9MIHo" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/GWa9Xg9MIHo/hqdefault.jpg" alt="Erzsébet video thumbnail"><div class="video-overlay"><div><span class="video-index">03 · YouTube</span><div class="video-label">Watch video</div></div><span class="play">▶</span></div></a>
+        <a class="video-card" href="https://www.youtube.com/watch?v=OlewF28QaTI" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/OlewF28QaTI/hqdefault.jpg" alt="Erzsébet video thumbnail"><div class="video-overlay"><div><span class="video-index">04 · YouTube</span><div class="video-label">Watch video</div></div><span class="play">▶</span></div></a>
+        <a class="video-card" href="https://www.youtube.com/watch?v=fEegJwNX7ts" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/fEegJwNX7ts/hqdefault.jpg" alt="Erzsébet video thumbnail"><div class="video-overlay"><div><span class="video-index">05 · YouTube</span><div class="video-label">Watch video</div></div><span class="play">▶</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="section-shell">
+      <p class="eyebrow">Professional</p>
+      <h2 class="section-title">EPK &amp; Contact</h2>
+      <p class="section-intro">Press, booking and professional enquiries</p>
+      <div class="contact-grid">
+        <div class="contact-block"><h3>Electronic Press Kit</h3><p>Biography, official photographs, live information, videos and professional material for promoters, festivals, press and industry contacts.</p><a class="button" href="mailto:erzsebetband@gmail.com?subject=Erzsebet%20EPK%20request">Request EPK</a></div>
+        <div class="contact-block"><h3>Contact</h3><p>For booking, press and professional enquiries:</p><a class="email" href="mailto:erzsebetband@gmail.com">erzsebetband@gmail.com</a><div class="socials"><a href="https://www.instagram.com/erzsebet_music/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube ↗</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>Erzsébet</span><span>Symphonic Black Metal · Barcelona</span><span>© 2026 Erzsébet</span></footer>
 </body>
 </html>
