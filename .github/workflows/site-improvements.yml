@@ -1,0 +1,90 @@
+name: Final site improvements
+on:
+  push:
+    paths:
+      - '.github/workflows/site-improvements.yml'
+permissions:
+  contents: write
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Improve HTML, SEO, accessibility and performance
+        run: |
+          cat > /tmp/improve.py <<'PY'
+          from pathlib import Path
+          import re, json
+          BASE='https://erzsebet-website.vercel.app'
+          IG='https://www.instagram.com/erzsebet_music/'
+          FB='https://www.facebook.com/erzsebetofficial'
+          SP='https://open.spotify.com/artist/6eJYV2XwmZrrAdQlRDrhSn'
+          social_css='''.social-links{display:flex;align-items:center;justify-content:center;gap:14px}.social-link{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(184,154,96,.35);color:var(--gold-soft);transition:border-color .2s,color .2s,transform .2s}.social-link:hover{border-color:var(--gold-soft);color:#fff;transform:translateY(-1px)}.social-link svg{width:16px;height:16px;fill:currentColor}.footer-copy{display:flex;gap:22px;align-items:center}a:focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px}.button:focus-visible,.ticket:focus-visible,.spotify:focus-visible,.social-link:focus-visible{outline-offset:3px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}'''
+          socials=f'''<div class="social-links" aria-label="Erzsébet social media"><a class="social-link" href="{IG}" target="_blank" rel="noopener noreferrer" aria-label="Erzsébet on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm11.5 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a><a class="social-link" href="{FB}" target="_blank" rel="noopener noreferrer" aria-label="Erzsébet on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.45-3.5H13.5V7.26c0-1.01.28-1.7 1.73-1.7H17V2.43c-.31-.04-1.38-.13-2.62-.13-2.59 0-4.36 1.58-4.36 4.48V9.5H7v3.5h3.02v9h3.48Z"/></svg></a><a class="social-link" href="{SP}" target="_blank" rel="noopener noreferrer" aria-label="Erzsébet on Spotify"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 1 0 12 22.5 10.5 10.5 0 0 0 12 1.5Zm4.814 15.145a.654.654 0 0 1-.899.217c-2.462-1.505-5.563-1.845-9.214-1.01a.655.655 0 1 1-.292-1.277c3.997-.914 7.426-.523 10.188 1.165.308.188.405.59.217.905Zm1.284-2.856a.82.82 0 0 1-1.127.27c-2.82-1.733-7.118-2.235-10.452-1.223a.82.82 0 1 1-.476-1.57c3.815-1.157 8.553-.598 11.785 1.389a.82.82 0 0 1 .27 1.134Zm.11-2.974C14.827 8.806 9.25 8.62 6.022 9.6a.983.983 0 1 1-.57-1.882c3.706-1.124 9.874-.905 13.758 1.4a.983.983 0 0 1-1.002 1.697Z"/></svg></a></div>'''
+          def external_rel(s):
+              return re.sub(r'<a([^>]*?) target="_blank"(?![^>]*\brel=)([^>]*)>', r'<a\1 target="_blank" rel="noopener noreferrer"\2>', s)
+          def lazy_images(s):
+              def f(m):
+                  tag=m.group(0)
+                  if 'class="logo"' in tag or 'loading=' in tag: return tag
+                  return tag[:-1]+' loading="lazy" decoding="async">'
+              return re.sub(r'<img\b[^>]*>', f, s)
+          # Main page
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          schema={"@context":"https://schema.org","@type":"MusicGroup","name":"Erzsébet","url":BASE+"/","genre":"Symphonic Black Metal","foundingLocation":{"@type":"Place","name":"Barcelona, Spain"},"sameAs":[IG,FB,SP]}
+          marker='<link rel="icon" href="./assets/seal-button.svg" type="image/svg+xml">'
+          if 'application/ld+json' not in s:
+              s=s.replace(marker, marker+'<script type="application/ld+json">'+json.dumps(schema,ensure_ascii=False,separators=(',',':'))+'</script>')
+          s=s.replace('</style>',''+social_css+'</style>',1)
+          s=s.replace('<a class="monogram" href="#home">','<a class="monogram" href="#home" aria-label="Erzsébet home">',1).replace('<nav>','<nav aria-label="Primary navigation">',1)
+          old='<footer><span>Erzsébet</span><span>Symphonic Black Metal · Barcelona</span><span>© 2026 Erzsébet</span></footer>'
+          new='<footer><div class="footer-copy"><span>Erzsébet</span><span>Symphonic Black Metal · Barcelona</span></div>'+socials+'<span>© 2026 Erzsébet</span></footer>'
+          s=s.replace(old,new)
+          s=external_rel(lazy_images(s))
+          p.write_text(s,encoding='utf-8')
+          # Press / EPK
+          p=Path('press.html'); s=p.read_text(encoding='utf-8')
+          head='<meta name="robots" content="index,follow"><link rel="canonical" href="'+BASE+'/press.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Erzsébet"><meta property="og:title" content="Press / EPK — Erzsébet"><meta property="og:description" content="Official Erzsébet electronic press kit: biography, releases, live history and professional contact."><meta property="og:url" content="'+BASE+'/press.html"><meta property="og:image" content="'+BASE+'/assets/band.jpg"><meta property="og:image:alt" content="Erzsébet official band photo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Press / EPK — Erzsébet"><meta name="twitter:description" content="Official Erzsébet electronic press kit: biography, releases, live history and professional contact."><meta name="twitter:image" content="'+BASE+'/assets/band.jpg"><link rel="icon" href="./assets/seal-button.svg" type="image/svg+xml">'
+          if 'property="og:title"' not in s:
+              s=s.replace('<title>Press / EPK — Erzsébet</title>','<title>Press / EPK — Erzsébet</title>'+head)
+          s=s.replace('</style>',social_css+'</style>',1)
+          s=s.replace('<a class="monogram" href="./index.html">E</a>','<a class="monogram" href="./index.html" aria-label="Erzsébet home">E</a>',1).replace('<nav>','<nav aria-label="Primary navigation">',1)
+          old='<footer><span>Erzsébet</span><span>Press / EPK · 2026</span></footer>'
+          new='<footer><div class="footer-copy"><span>Erzsébet</span><span>Press / EPK · 2026</span></div>'+socials+'</footer>'
+          if old in s: s=s.replace(old,new)
+          else: s=re.sub(r'<footer>.*?</footer>',new,s,count=1)
+          s=external_rel(lazy_images(s))
+          p.write_text(s,encoding='utf-8')
+          Path('robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+BASE+'/sitemap.xml\n',encoding='utf-8')
+          Path('sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>'+BASE+'/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url><url><loc>'+BASE+'/press.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url></urlset>\n',encoding='utf-8')
+          PY
+          python /tmp/improve.py
+      - name: Optimize heavy JPG assets
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          files=['assets/band.jpg','assets/band-angelvs.jpg','assets/band-cerberus.jpg','assets/band-erzsebet.jpg','assets/band-growlist.jpg','assets/official-store.png']
+          for f in files:
+              p=Path(f)
+              if not p.exists(): continue
+              im=Image.open(p)
+              im=ImageOps.exif_transpose(im)
+              im.thumbnail((1800,1800),Image.Resampling.LANCZOS)
+              if p.suffix.lower()=='.png':
+                  im.save(p,optimize=True)
+              else:
+                  if im.mode not in ('RGB','L'): im=im.convert('RGB')
+                  im.save(p,quality=84,optimize=True,progressive=True)
+          PY
+      - name: Commit improvements
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html press.html robots.txt sitemap.xml assets
+          git commit -m "Complete SEO, footer, accessibility and performance pass [skip ci]" || exit 0
+          git push
